@@ -7,7 +7,7 @@ $ go get -u -d gocv.io/x/gocv
 ```bash
 $ brew install cmake
 $ brew install opencv
-$ brew install 
+$ brew install pkgconfig
 ```
 
 ```bash
