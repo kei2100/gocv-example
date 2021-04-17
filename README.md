@@ -71,4 +71,5 @@ opencv lib version: 4.5.2
 
 * example/hello-video/
 * example/face-detect/
+* example/qr-detect/
 * more examples... https://gocv.io/writing-code/more-examples/
