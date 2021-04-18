@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/makiuchi-d/gozxing"
 	"github.com/makiuchi-d/gozxing/qrcode"
 
@@ -24,13 +25,13 @@ func main() {
 
 	// prepare image matrix
 	webcamimg := gocv.NewMat()
-	//grayscale := gocv.NewMat()
-	//binimg := gocv.NewMat()
+	grayscale := gocv.NewMat()
+	binimg := gocv.NewMat()
 	points := gocv.NewMat()
 	qr := gocv.NewMat()
 	defer webcamimg.Close()
-	//defer grayscale.Close()
-	//defer binimg.Close()
+	defer grayscale.Close()
+	defer binimg.Close()
 	defer points.Close()
 	defer qr.Close()
 
@@ -43,16 +44,25 @@ func main() {
 			continue
 		}
 		// show the image in the window, and wait 1 millisecond
+
+		// >> use adaptive threshold
 		//gocv.CvtColor(webcamimg, &grayscale, gocv.ColorRGBToGray)
 		//gocv.AdaptiveThreshold(grayscale, &binimg, 255, gocv.AdaptiveThresholdGaussian, gocv.ThresholdBinary, 83, 2)
+		// >> use threshold
+		//gocv.CvtColor(webcamimg, &grayscale, gocv.ColorRGBToGray)
+		//gocv.Threshold(grayscale, &binimg, 0, 255, gocv.ThresholdBinary|gocv.ThresholdOtsu)
+
+		// >> show raw webcam image
 		window.IMShow(webcamimg)
+		// >> show processed image
 		//window.IMShow(binimg)
 		if window.WaitKey(1) >= 0 {
 			break
 		}
 
-		// decode image
+		// >> decode raw webcom image
 		img, err := webcamimg.ToImage()
+		// >> decode processed image
 		//img, err := binimg.ToImage()
 		if err != nil {
 			fmt.Printf("to image: %v\n", err)
