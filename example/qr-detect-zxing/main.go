@@ -70,7 +70,13 @@ func main() {
 		}
 		bmp, _ := gozxing.NewBinaryBitmapFromImage(img)
 		qrReader := qrcode.NewQRCodeReader()
-		result, err := qrReader.Decode(bmp, nil)
+
+		var hints map[gozxing.DecodeHintType]interface{}
+		// >> use hints
+		//hints = map[gozxing.DecodeHintType]interface{}{
+		//	gozxing.DecodeHintType_CHARACTER_SET: "Shift_JIS",
+		//}
+		result, err := qrReader.Decode(bmp, hints)
 		if err != nil {
 			continue
 		}
